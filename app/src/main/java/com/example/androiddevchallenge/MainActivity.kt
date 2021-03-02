@@ -20,11 +20,20 @@ import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material.ContentAlpha
+import androidx.compose.material.LocalContentAlpha
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.Modifier
@@ -38,14 +47,24 @@ import com.example.androiddevchallenge.ui.theme.MyTheme
 import com.example.puppyadoption.model.Item
 
 val items = arrayListOf<Item>()
-val names = arrayOf("Sink_Leash","Kitty_Urine","Book_Floppy_Disk","Solar_Dislike","System_Solar","Comics_Running","Flowers_Toolbox","Post_office_Water","Android_Fusion","Ice_cream_cone_Dog", "Trees_Whale","Crab_Bird","Light_saber_Cat","Plants_Light_saber","Soda_Solar","Flowers_Clock","Cone_Puppy","Websites_Hnads","Printer_Book")
-val owners = arrayOf("Plants_Solar","Poop_Boat","Toilet_Trees","Leash_Video_games","Cat_Puppy","Running_Bird","YouTube_Whale","Plants_Hnads","Leash_Leash","Post_office_Hnads", "Cat_Fusion","Sink_Allergies","Elevator_Ice_cream_cone","Light_saber_Book","Settings_Printer","Boat_Soda","Breakfast_Shoes","Shoes_Bird","Puppy_Toolbox")
+val names = arrayOf(
+    "Sink_Leash", "Kitty_Urine", "Book_Floppy_Disk", "Solar_Dislike", "System_Solar",
+    "Comics_Running", "Flowers_Toolbox", "Post_office_Water", "Android_Fusion",
+    "Ice_cream_cone_Dog", "Trees_Whale", "Crab_Bird", "Light_saber_Cat", "Plants_Light_saber",
+    "Soda_Solar", "Flowers_Clock", "Cone_Puppy", "Websites_Hnads", "Printer_Book"
+)
+val owners = arrayOf(
+    "Plants_Solar", "Poop_Boat", "Toilet_Trees", "Leash_Video_games", "Cat_Puppy",
+    "Running_Bird", "YouTube_Whale", "Plants_Hnads", "Leash_Leash", "Post_office_Hnads",
+    "Cat_Fusion", "Sink_Allergies", "Elevator_Ice_cream_cone", "Light_saber_Book",
+    "Settings_Printer", "Boat_Soda", "Breakfast_Shoes", "Shoes_Bird", "Puppy_Toolbox"
+)
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         for (i in names.indices) {
-            val fileName = "puppyadoptionimage_${i+1}"
+            val fileName = "puppyadoptionimage_${i + 1}"
             items.add(
                 Item(
                     id = i,
@@ -88,7 +107,17 @@ fun NewsStory(detailId: Int) {
             )
         }
         Text(
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse fringilla dictum odio, sed tristique metus ultricies vitae. Suspendisse eleifend tincidunt felis id imperdiet. Vivamus rhoncus in augue vitae vulputate. Nam lacinia rutrum tellus, sit amet convallis sem viverra vel. Curabitur varius facilisis ornare. Curabitur auctor turpis a turpis eleifend aliquam. Praesent aliquam porta tortor, vitae laoreet metus congue vel. Fusce cursus, mauris consequat ultricies imperdiet, orci dolor euismod felis, sit amet porttitor sem dolor a lorem. Nullam volutpat vel metus in luctus. Duis vitae tincidunt nulla, sit amet commodo urna. Vivamus molestie mauris eu mi varius porttitor. Nam luctus sapien id pulvinar pellentesque. Aliquam pharetra mauris ac volutpat congue.",
+            "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse fringilla" +
+                " dictum odio, sed tristique metus ultricies vitae. Suspendisse eleifend" +
+                " tincidunt felis id imperdiet. Vivamus rhoncus in augue vitae vulputate. Nam" +
+                " lacinia rutrum tellus, sit amet convallis sem viverra vel. Curabitur varius" +
+                " facilisis ornare. Curabitur auctor turpis a turpis eleifend aliquam." +
+                " Praesent aliquam porta tortor, vitae laoreet metus congue vel. Fusce" +
+                " cursus, mauris consequat ultricies imperdiet, orci dolor euismod felis," +
+                " sit amet porttitor sem dolor a lorem. Nullam volutpat vel metus in luctus." +
+                " Duis vitae tincidunt nulla, sit amet commodo urna. Vivamus molestie mauris" +
+                " eu mi varius porttitor. Nam luctus sapien id pulvinar pellentesque. Aliquam" +
+                " pharetra mauris ac volutpat congue.",
             style = MaterialTheme.typography.body2
         )
     }
@@ -96,9 +125,10 @@ fun NewsStory(detailId: Int) {
 
 @Composable
 fun Message(index: Int, onClick: () -> Unit) {
-    Row(modifier = Modifier
-        .clickable(onClick = onClick)
-        .padding(16.dp)
+    Row(
+        modifier = Modifier
+            .clickable(onClick = onClick)
+            .padding(16.dp)
     ) {
         Image(
             painter = painterResource(items[index].imageId),
@@ -123,14 +153,13 @@ fun Message(index: Int, onClick: () -> Unit) {
                     )
                 }
                 Text(
-                    text = " - ${index%4} yrs",
+                    text = " - ${index % 4} yrs",
                     style = textStyle
                 )
             }
         }
     }
 }
-
 
 @Composable
 fun ItemsList(messages: Array<String>, onClick: (Int) -> Unit) {

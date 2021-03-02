@@ -4,7 +4,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
-import androidx.navigation.compose.*
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.navArgument
+import androidx.navigation.compose.navigate
+import androidx.navigation.compose.rememberNavController
 import com.example.androiddevchallenge.ItemsList
 import com.example.androiddevchallenge.NewsStory
 import com.example.androiddevchallenge.ui.MainDestinations.DETAIL
@@ -32,7 +36,8 @@ fun NavGraph(startDestination: String = MainDestinations.HOME) {
         composable(MainDestinations.HOME) {
             ItemsList(Array(19) { "n = $it" }, actions.selectCourse)
         }
-        composable("$DETAIL/{$DETAIL_ID_KEY}",
+        composable(
+            "$DETAIL/{$DETAIL_ID_KEY}",
             arguments = listOf(navArgument(DETAIL_ID_KEY) { type = NavType.IntType })
         ) { backStackEntry ->
             val arguments = requireNotNull(backStackEntry.arguments)
